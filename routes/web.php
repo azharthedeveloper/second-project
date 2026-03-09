@@ -5,6 +5,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentProfileController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Middleware\IsactiveMiddleware;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,7 +27,8 @@ Route::middleware([
 });
 
 
-Route::prefix('/posts')->controller(PostController::class)->group(function () {
+// Route::prefix('/posts')->controller(PostController::class)->middleware(IsactiveMiddleware::class)->group(function () {
+    Route::prefix('/posts')->controller(PostController::class)->middleware('isActive')->group(function () {
     // Route::get('/', 'getData');
     // Route::get('/add-data', 'addData');
     // Route::get('/update-data', 'updateData');
@@ -34,6 +36,7 @@ Route::prefix('/posts')->controller(PostController::class)->group(function () {
     // Route::get('/first-method', 'firstMethod');
     // Route::get('/second-method', 'secondMethod');
 
+    // Route::get('/', 'index')->name('posts-index')->middleware('auth');
     Route::get('/', 'index')->name('posts-index');
     Route::get('/create', 'create')->name('posts-create');
     Route::post('/store', 'store')->name('posts-store');

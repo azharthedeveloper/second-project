@@ -210,7 +210,8 @@
                             <td>
                                 {{ $post->id }}
                                 @if ($post->image_path)
-                                <img src="{{ asset('storage/'. $post->image_path) }}" alt="ALT" width="70" height="45">                                    
+                                    <img src="{{ asset('storage/' . $post->image_path) }}" alt="ALT" width="70"
+                                        height="45">
                                 @endif
                             </td>
                             <td>{{ $post->title }}</td>
@@ -225,15 +226,37 @@
                             <td>{{ $post->created_at }}</td>
                             <td>
                                 <div class="action-buttons">
-                                    <a href="{{ route('posts-edit', $post->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                    <form action="{{ route('posts-delete', $post->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger"
-                                            onclick="return confirm('Are you sure?')">
-                                            Delete
-                                        </button>
-                                    </form>
+                                    {{-- Gate --}}
+                                    {{-- @can('posts-edit', $post)
+                                        <a href="{{ route('posts-edit', $post->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                    @endcan
+                                    @can('posts-delete', $post)
+                                        <form action="{{ route('posts-delete', $post->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Are you sure?')">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    @endcan --}}
+                                    {{-- Gate --}}
+
+                                    {{-- Policy --}}
+                                    @can('update', $post)
+                                        <a href="{{ route('posts-edit', $post->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                    @endcan
+                                    @can('delete', $post)
+                                        <form action="{{ route('posts-delete', $post->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Are you sure?')">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    @endcan
+                                    {{-- Policy --}}
                                 </div>
                             </td>
                         </tr>

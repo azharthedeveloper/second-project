@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class PostController extends Controller
 {
+    use AuthorizesRequests;
     // public function addData()
     // {
     //     $post = new Post();
@@ -184,6 +187,15 @@ class PostController extends Controller
 
         $post = Post::findOrFail($id);
 
+        //Gate
+        // if (!Gate::allows('posts-edit', $post)) {
+        //     abort(403);
+        // }
+
+        // Policy
+        $this->authorize('update', $post);
+
+
         $types_drp = ['Article', 'News', 'Blog', 'Tutorial', 'Facebook', 'Instagram', 'TikTok', 'Thread', 'Twitter', 'Linkedin'];
         $status_drp = ['draft', 'published', 'archived'];
 
@@ -243,7 +255,7 @@ class PostController extends Controller
             ]
         );
 
-        
+
 
         $post = Post::findOrFail($id);
 
@@ -274,7 +286,15 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
 
-        if($post->image_path){
+        // Gate
+        // if (!Gate::allows('posts-delete', $post)) {
+        //     abort(403);
+        // }
+
+        //Policy
+        $this->authorize('delete', $post);
+
+        if ($post->image_path) {
             Storage::disk('public')->delete($post->image_path);
         }
 
