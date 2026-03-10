@@ -18,7 +18,7 @@ class SessionDemoController extends Controller
 
     // session()->flush();
     
-    // $session = session()->all();
+    $session = session()->all();
 
 
 
