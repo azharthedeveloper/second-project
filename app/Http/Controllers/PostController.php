@@ -179,6 +179,8 @@ class PostController extends Controller
         $post->image_path = $image_path;
         $post->save();
 
+        session()->flash('success', 'Post Created Successfully');
+
         return redirect('posts');
     }
 
@@ -279,6 +281,8 @@ class PostController extends Controller
         $post->image_path = $image_path;
         $post->update();
 
+        session()->flash('success', 'Post Updated Successfully');
+
         return redirect('posts');
     }
 
@@ -299,6 +303,9 @@ class PostController extends Controller
         }
 
         $post->delete();
+
+        session()->flash('success', 'Post Deleted Successfully');
+
 
         return redirect('posts');
     }

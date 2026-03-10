@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SessionDemoController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentProfileController;
 use App\Http\Controllers\TeacherController;
@@ -49,3 +50,5 @@ Route::get('student', [StudentController::class, 'index']);
 Route::get('student-profile', [StudentProfileController::class, 'index']);
 Route::get('teacher', [TeacherController::class, 'index']);
 Route::get('classes', [ClassesController::class, 'index']);
+
+Route::get('/session', [SessionDemoController::class, 'index'])->name('session.demo');
