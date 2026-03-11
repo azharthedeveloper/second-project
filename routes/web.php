@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CacheDemoController;
 use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SessionDemoController;
@@ -38,7 +39,7 @@ Route::middleware([
     // Route::get('/second-method', 'secondMethod');
 
     // Route::get('/', 'index')->name('posts-index')->middleware('auth');
-    Route::get('/', 'index')->name('posts-index');
+    Route::get('/', 'index')->name('posts-index')->middleware('auth');
     Route::get('/create', 'create')->name('posts-create');
     Route::post('/store', 'store')->name('posts-store');
     Route::get('/edit/{id}', 'edit')->name('posts-edit');
@@ -52,3 +53,4 @@ Route::get('teacher', [TeacherController::class, 'index']);
 Route::get('classes', [ClassesController::class, 'index']);
 
 Route::get('/session', [SessionDemoController::class, 'index'])->name('session.demo');
+Route::get('/cache', [CacheDemoController::class, 'index'])->name('cache.demo');
